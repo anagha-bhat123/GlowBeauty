@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Glow Beauty | Products</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<link rel="stylesheet" href="style.css">
+<script src="nykaa.js"></script>
+
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+
+<div class="container">
+
+<a class="navbar-brand fw-bold text-danger"
+href="index.html">
+
+Glow Beauty
+
+</a>
+
+<button class="navbar-toggler"
+type="button"
+data-bs-toggle="collapse"
+data-bs-target="#navbarNav">
+
+<span class="navbar-toggler-icon"></span>
+
+</button>
+
+<div class="collapse navbar-collapse"
+id="navbarNav">
+
+<ul class="navbar-nav ms-auto">
+
+<li class="nav-item">
+
+<a class="nav-link"
+href="index.html">
+
+Home
+
+</a>
+
+</li>
+
+<li class="nav-item">
+
+<a class="nav-link active"
+href="products.html">
+
+Products
+
+</a>
+
+</li>
+
+<li class="nav-item">
+
+<a class="nav-link"
+href="about.html">
+
+About
+
+</a>
+
+</li>
+
+<li class="nav-item">
+
+<a class="nav-link"
+href="contact.html">
+
+Contact
+
+</a>
+
+</li>
+
+<li class="nav-item">
+
+<a class="nav-link position-relative"
+href="wishlist.html">
+
+<i class="bi bi-heart fs-5"></i>
+
+<span id="wishlistCount"
+class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+
+0
+
+</span>
+
+</a>
+
+</li>
+
+<li class="nav-item">
+
+<a class="nav-link position-relative"
+href="cart.html">
+
+<i class="bi bi-cart3 fs-5"></i>
+
+<span id="cartCount"
+class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+
+0
+
+</span>
+
+</a>
+
+</li>
+
+<li class="nav-item dropdown">
+
+<a class="nav-link dropdown-toggle"
+href="#"
+data-bs-toggle="dropdown">
+
+<i class="bi bi-person-circle fs-4"></i>
+
+</a>
+
+<ul class="dropdown-menu">
+
+<li>
+
+<a class="dropdown-item"
+href="login.html">
+
+Login
+
+</a>
+
+</li>
+
+<li>
+
+<a class="dropdown-item"
+href="register.html">
+
+Register
+
+</a>
+
+</li>
+
+<li>
+
+<a class="dropdown-item"
+href="myorders.html">
+
+My Orders
+
+</a>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</nav>
+
+<!-- ================= HERO ================= -->
+
+<section class="hero py-5 text-center">
+
+<div class="container">
+
+<h1 class="display-4 fw-bold">
+
+Beauty Collection
+
+</h1>
+
+<p class="lead">
+
+Explore premium cosmetics, skincare, perfumes and makeup.
+
+</p>
+
+</div>
+
+</section>
+
+<!-- ================= FILTERS + PRODUCTS ================= -->
+
+<section class="container py-4">
+
+<div class="row g-4">
+
+<!-- Sidebar Filters -->
+
+<div class="col-lg-3">
+
+<div class="nk-filter-card mb-3">
+
+<h6>Search</h6>
+
+<input type="text" id="searchProduct" class="form-control" placeholder="Search products...">
+
+</div>
+
+<div class="nk-filter-card mb-3">
+
+<h6>Category</h6>
+
+<select id="categoryFilter" class="form-select mb-3">
+<option value="all">All Categories</option>
+<option value="makeup">Makeup</option>
+<option value="skincare">Skincare</option>
+<option value="perfume">Perfume</option>
+<option value="hair">Hair Care</option>
+</select>
+
+</div>
+
+<div class="nk-filter-card mb-3">
+
+<h6>Price</h6>
+
+<div class="form-check">
+<input class="form-check-input" type="radio" name="priceFilter" id="priceAll" value="all" checked>
+<label class="form-check-label" for="priceAll">All Prices</label>
+</div>
+
+<div class="form-check">
+<input class="form-check-input" type="radio" name="priceFilter" id="priceU700" value="u700">
+<label class="form-check-label" for="priceU700">Below &#8377;700</label>
+</div>
+
+<div class="form-check">
+<input class="form-check-input" type="radio" name="priceFilter" id="price700" value="700-1200">
+<label class="form-check-label" for="price700">&#8377;700 - &#8377;1200</label>
+</div>
+
+<div class="form-check">
+<input class="form-check-input" type="radio" name="priceFilter" id="price1200" value="1200-2000">
+<label class="form-check-label" for="price1200">&#8377;1200 - &#8377;2000</label>
+</div>
+
+<div class="form-check">
+<input class="form-check-input" type="radio" name="priceFilter" id="price2000" value="2000+">
+<label class="form-check-label" for="price2000">Above &#8377;2000</label>
+</div>
+
+</div>
+
+<div class="nk-filter-card mb-3">
+
+<h6>Customer Rating</h6>
+
+<div class="form-check">
+<input class="form-check-input" type="checkbox" id="ratingFilter">
+<label class="form-check-label" for="ratingFilter">4&#9733; &amp; above</label>
+</div>
+
+</div>
+
+<div class="nk-filter-card">
+
+<h6>Offers</h6>
+
+<div class="form-check">
+<input class="form-check-input" type="checkbox" id="discountFilter">
+<label class="form-check-label" for="discountFilter">On Sale Only</label>
+</div>
+
+</div>
+
+</div>
+
+<!-- Product Grid -->
+
+<div class="col-lg-9">
+
+<div class="nk-sort-bar mb-4">
+
+<span class="nk-count" id="productCount">Showing 12 products</span>
+
+<div class="d-flex align-items-center gap-2">
+<label class="mb-0 small text-muted">Sort by</label>
+<select id="sortSelect" class="form-select form-select-sm">
+<option value="popularity">Popularity</option>
+<option value="priceLow">Price: Low to High</option>
+<option value="priceHigh">Price: High to Low</option>
+<option value="rating">Customer Rating</option>
+</select>
+</div>
+
+</div>
+
+<div class="row g-4" id="productGrid">
+
+<div class="col-12 col-sm-6 col-lg-4 product" data-category="makeup" data-price="700-1200" data-rating="4plus" data-name="Luxury Lipstick" data-sortprice="799">
+
+<div class="card product-card h-100">
+
+<div class="nk-imgwrap">
+
+<img src="assets/lipstick.png" class="card-img-top" alt="Luxury Lipstick">
+
+<button class="btn btn-outline-danger wishlistBtn">
+<i class="bi bi-heart"></i>
+</button>
+
+</div>
+
+<div class="card-body text-center">
+
+<span class="nk-brand-tag">Glow Beauty</span>
+
+<h5>Luxury Lipstick</h5>
+
+<div class="nk-rating-pill mb-2">4.5 <i class="bi bi-star-fill"></i> <span class="text-muted fw-normal">(312)</span></div>
+
+<p class="mb-2">
+<span class="product-price text-danger fw-bold">₹799</span>
+</p>
+
+<div class="d-grid gap-2">
+
+<button class="btn btn-outline-primary quickView">
+<i class="bi bi-eye"></i> Quick View
+</button>
+
+<button class="btn btn-pink addCart">
+Add To Bag
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===== -->
+
+<div class="col-12 col-sm-6 col-lg-4 product" data-category="skincare" data-price="1200-2000" data-rating="4plus" data-name="Vitamin C Serum" data-sortprice="1299">
+
+<div class="card product-card h-100">
+
+<div class="nk-imgwrap">
+
+<img src="assets/serum.png" class="card-img-top" alt="Vitamin C Serum">
+
+<button class="btn btn-outline-danger wishlistBtn">
+<i class="bi bi-heart"></i>
+</button>
+
+</div>
+
+<div class="card-body text-center">
+
+<span class="nk-brand-tag">Glow Beauty</span>
+
+<h5>Vitamin C Serum</h5>
+
+<div class="nk-rating-pill mb-2">4.6 <i class="bi bi-star-fill"></i> <span class="text-muted fw-normal">(540)</span></div>
+
+<p class="mb-2">
+<span class="product-price text-danger fw-bold">₹1299</span>
+</p>
+
+<div class="d-grid gap-2">
+
+<button class="btn btn-outline-primary quickView">
+<i class="bi bi-eye"></i> Quick View
+</button>
+
+<button class="btn btn-pink addCart">
+Add To Bag
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===== -->
+
+<div class="col-12 col-sm-6 col-lg-4 product" data-category="skincare" data-price="700-1200" data-rating="4plus" data-name="Face Moisturizer" data-sortprice="999">
+
+<div class="card product-card h-100">
+
+<div class="nk-imgwrap">
+
+<span class="badge bg-danger position-absolute">15% OFF</span>
+
+<img src="assets/moisturizer.png" class="card-img-top" alt="Face Moisturizer">
+
+<button class="btn btn-outline-danger wishlistBtn">
+<i class="bi bi-heart"></i>
+</button>
+
+</div>
+
+<div class="card-body text-center">
+
+<span class="nk-brand-tag">Glow Beauty</span>
+
+<h5>Face Moisturizer</h5>
+
+<div class="nk-rating-pill mb-2">4.4 <i class="bi bi-star-fill"></i> <span class="text-muted fw-normal">(201)</span></div>
+
+<p class="mb-2">
+<span class="product-price text-danger fw-bold">₹999</span>
+<del class="ms-1">₹1199</del>
+<span class="nk-discount ms-1">(17% OFF)</span>
+</p>
+
+<div class="d-grid gap-2">
+
+<button class="btn btn-outline-primary quickView">
+<i class="bi bi-eye"></i> Quick View
+</button>
+
+<button class="btn btn-pink addCart">
+Add To Bag
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===== -->
+
+<div class="col-12 col-sm-6 col-lg-4 product" data-category="perfume" data-price="2000+" data-rating="4plus" data-name="Luxury Perfume" data-sortprice="2499">
+
+<div class="card product-card h-100">
+
+<div class="nk-imgwrap">
+
+<span class="badge bg-success position-absolute">NEW</span>
+
+<img src="assets/perfume.png" class="card-img-top" alt="Luxury Perfume">
+
+<button class="btn btn-outline-danger wishlistBtn">
+<i class="bi bi-heart"></i>
+</button>
+
+</div>
+
+<div class="card-body text-center">
+
+<span class="nk-brand-tag">Glow Beauty</span>
+
+<h5>Luxury Perfume</h5>
+
+<div class="nk-rating-pill mb-2">4.7 <i class="bi bi-star-fill"></i> <span class="text-muted fw-normal">(98)</span></div>
+
+<p class="mb-2">
+<span class="product-price text-danger fw-bold">₹2499</span>
+</p>
+
+<div class="d-grid gap-2">
+
+<button class="btn btn-outline-primary quickView">
+<i class="bi bi-eye"></i> Quick View
+</button>
+
+<button class="btn btn-pink addCart">
+Add To Bag
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===== -->
+
+<div class="col-12 col-sm-6 col-lg-4 product" data-category="hair" data-price="u700" data-rating="4plus" data-name="Hair Shampoo" data-sortprice="699">
+
+<div class="card product-card h-100">
+
+<div class="nk-imgwrap">
+
+<img src="assets/shampoo.png" class="card-img-top" alt="Hair Shampoo">
+
+<button class="btn btn-outline-danger wishlistBtn">
+<i class="bi bi-heart"></i>
+</button>
+
+</div>
+
+<div class="card-body text-center">
+
+<span class="nk-brand-tag">Glow Beauty</span>
+
+<h5>Hair Shampoo</h5>
+
+<div class="nk-rating-pill mb-2">4.1 <i class="bi bi-star-fill"></i> <span class="text-muted fw-normal">(176)</span></div>
+
+<p class="mb-2">
+<span class="product-price text-danger fw-bold">₹699</span>
+</p>
+
+<div class="d-grid gap-2">
+
+<button class="btn btn-outline-primary quickView">
+<i class="bi bi-eye"></i> Quick View
+</button>
+
+<button class="btn btn-pink addCart">
+Add To Bag
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===== -->
+
+<div class="col-12 col-sm-6 col-lg-4 product" data-category="makeup" data-price="700-1200" data-rating="4plus" data-name="Foundation" data-sortprice="1199">
+
+<div class="card product-card h-100">
+
+<div class="nk-imgwrap">
+
+<span class="badge bg-warning text-dark position-absolute">BESTSELLER</span>
+
+<img src="assets/foundation.png" class="card-img-top" alt="Foundation">
+
+<button class="btn btn-outline-danger wishlistBtn">
+<i class="bi bi-heart"></i>
+</button>
+
+</div>
+
+<div class="card-body text-center">
+
+<span class="nk-brand-tag">Glow Beauty</span>
+
+<h5>Foundation</h5>
+
+<div class="nk-rating-pill mb-2">4.5 <i class="bi bi-star-fill"></i> <span class="text-muted fw-normal">(402)</span></div>
+
+<p class="mb-2">
+<span class="product-price text-danger fw-bold">₹1199</span>
+</p>
+
+<div class="d-grid gap-2">
+
+<button class="btn btn-outline-primary quickView">
+<i class="bi bi-eye"></i> Quick View
+</button>
+
+<button class="btn btn-pink addCart">
+Add To Bag
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===== -->
+
+<div class="col-12 col-sm-6 col-lg-4 product" data-category="makeup" data-price="700-1200" data-rating="4plus" data-name="Compact Powder" data-sortprice="899">
+
+<div class="card product-card h-100">
+
+<div class="nk-imgwrap">
+
+<img src="assets/compact.png" class="card-img-top" alt="Compact Powder">
+
+<button class="btn btn-outline-danger wishlistBtn">
+<i class="bi bi-heart"></i>
+</button>
+
+</div>
+
+<div class="card-body text-center">
+
+<span class="nk-brand-tag">Glow Beauty</span>
+
+<h5>Compact Powder</h5>
+
+<div class="nk-rating-pill mb-2">4.2 <i class="bi bi-star-fill"></i> <span class="text-muted fw-normal">(134)</span></div>
+
+<p class="mb-2">
+<span class="product-price text-danger fw-bold">₹899</span>
+</p>
+
+<div class="d-grid gap-2">
+
+<button class="btn btn-outline-primary quickView">
+<i class="bi bi-eye"></i> Quick View
+</button>
+
+<button class="btn btn-pink addCart">
+Add To Bag
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===== -->
+
+<div class="col-12 col-sm-6 col-lg-4 product" data-category="skincare" data-price="1200-2000" data-rating="4plus" data-name="Night Cream" data-sortprice="1499">
+
+<div class="card product-card h-100">
+
+<div class="nk-imgwrap">
+
+<span class="badge bg-danger position-absolute">25% OFF</span>
+
+<img src="assets/nightcream.png" class="card-img-top" alt="Night Cream">
+
+<button class="btn btn-outline-danger wishlistBtn">
+<i class="bi bi-heart"></i>
+</button>
+
+</div>
+
+<div class="card-body text-center">
+
+<span class="nk-brand-tag">Glow Beauty</span>
+
+<h5>Night Cream</h5>
+
+<div class="nk-rating-pill mb-2">4.6 <i class="bi bi-star-fill"></i> <span class="text-muted fw-normal">(267)</span></div>
+
+<p class="mb-2">
+<span class="product-price text-danger fw-bold">₹1499</span>
+<del class="ms-1">₹1999</del>
+<span class="nk-discount ms-1">(25% OFF)</span>
+</p>
+
+<div class="d-grid gap-2">
+
+<button class="btn btn-outline-primary quickView">
+<i class="bi bi-eye"></i> Quick View
+</button>
+
+<button class="btn btn-pink addCart">
+Add To Bag
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===== -->
+
+<div class="col-12 col-sm-6 col-lg-4 product" data-category="perfume" data-price="1200-2000" data-rating="4plus" data-name="Floral Perfume" data-sortprice="1899">
+
+<div class="card product-card h-100">
+
+<div class="nk-imgwrap">
+
+<img src="assets/floralperfume.png" class="card-img-top" alt="Floral Perfume">
+
+<button class="btn btn-outline-danger wishlistBtn">
+<i class="bi bi-heart"></i>
+</button>
+
+</div>
+
+<div class="card-body text-center">
+
+<span class="nk-brand-tag">Glow Beauty</span>
+
+<h5>Floral Perfume</h5>
+
+<div class="nk-rating-pill mb-2">4.8 <i class="bi bi-star-fill"></i> <span class="text-muted fw-normal">(88)</span></div>
+
+<p class="mb-2">
+<span class="product-price text-danger fw-bold">₹1899</span>
+</p>
+
+<div class="d-grid gap-2">
+
+<button class="btn btn-outline-primary quickView">
+<i class="bi bi-eye"></i> Quick View
+</button>
+
+<button class="btn btn-pink addCart">
+Add To Bag
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===== -->
+
+<div class="col-12 col-sm-6 col-lg-4 product" data-category="hair" data-price="u700" data-rating="4plus" data-name="Hair Oil" data-sortprice="599">
+
+<div class="card product-card h-100">
+
+<div class="nk-imgwrap">
+
+<img src="assets/hairoil.png" class="card-img-top" alt="Hair Oil">
+
+<button class="btn btn-outline-danger wishlistBtn">
+<i class="bi bi-heart"></i>
+</button>
+
+</div>
+
+<div class="card-body text-center">
+
+<span class="nk-brand-tag">Glow Beauty</span>
+
+<h5>Hair Oil</h5>
+
+<div class="nk-rating-pill mb-2">4.0 <i class="bi bi-star-fill"></i> <span class="text-muted fw-normal">(145)</span></div>
+
+<p class="mb-2">
+<span class="product-price text-danger fw-bold">₹599</span>
+</p>
+
+<div class="d-grid gap-2">
+
+<button class="btn btn-outline-primary quickView">
+<i class="bi bi-eye"></i> Quick View
+</button>
+
+<button class="btn btn-pink addCart">
+Add To Bag
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===== -->
+
+<div class="col-12 col-sm-6 col-lg-4 product" data-category="makeup" data-price="700-1200" data-rating="4plus" data-name="Blush Palette" data-sortprice="999">
+
+<div class="card product-card h-100">
+
+<div class="nk-imgwrap">
+
+<span class="badge bg-success position-absolute">HOT</span>
+
+<img src="assets/blush.png" class="card-img-top" alt="Blush Palette">
+
+<button class="btn btn-outline-danger wishlistBtn">
+<i class="bi bi-heart"></i>
+</button>
+
+</div>
+
+<div class="card-body text-center">
+
+<span class="nk-brand-tag">Glow Beauty</span>
+
+<h5>Blush Palette</h5>
+
+<div class="nk-rating-pill mb-2">4.5 <i class="bi bi-star-fill"></i> <span class="text-muted fw-normal">(210)</span></div>
+
+<p class="mb-2">
+<span class="product-price text-danger fw-bold">₹999</span>
+</p>
+
+<div class="d-grid gap-2">
+
+<button class="btn btn-outline-primary quickView">
+<i class="bi bi-eye"></i> Quick View
+</button>
+
+<button class="btn btn-pink addCart">
+Add To Bag
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===== -->
+
+<div class="col-12 col-sm-6 col-lg-4 product" data-category="skincare" data-price="u700" data-rating="4plus" data-name="Face Wash" data-sortprice="699">
+
+<div class="card product-card h-100">
+
+<div class="nk-imgwrap">
+
+<span class="badge bg-danger position-absolute">30% OFF</span>
+
+<img src="assets/facewash.png" class="card-img-top" alt="Face Wash">
+
+<button class="btn btn-outline-danger wishlistBtn">
+<i class="bi bi-heart"></i>
+</button>
+
+</div>
+
+<div class="card-body text-center">
+
+<span class="nk-brand-tag">Glow Beauty</span>
+
+<h5>Face Wash</h5>
+
+<div class="nk-rating-pill mb-2">4.6 <i class="bi bi-star-fill"></i> <span class="text-muted fw-normal">(330)</span></div>
+
+<p class="mb-2">
+<span class="product-price text-danger fw-bold">₹699</span>
+<del class="ms-1">₹999</del>
+<span class="nk-discount ms-1">(30% OFF)</span>
+</p>
+
+<div class="d-grid gap-2">
+
+<button class="btn btn-outline-primary quickView">
+<i class="bi bi-eye"></i> Quick View
+</button>
+
+<button class="btn btn-pink addCart">
+Add To Bag
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Quick View Modal -->
+
+<div class="modal fade" id="quickViewModal" tabindex="-1">
+
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">Product Details</h5>
+
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="row">
+
+                    <div class="col-md-6">
+
+                        <img id="modalImage"
+                            src="assets/lipstick.png"
+                            class="img-fluid rounded">
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <h3 id="modalTitle">Glow Beauty Product</h3>
+
+                        <h4 class="text-danger" id="modalPrice"></h4>
+
+                        <p>
+                            Discover high-quality cosmetics made with premium ingredients.
+                            Suitable for all skin types and designed for everyday beauty.
+                        </p>
+
+                        <button class="btn btn-pink addCart">
+                            Add To Cart
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Footer -->
+
+<footer class="bg-dark text-white mt-5 py-5">
+
+    <div class="container text-center">
+
+        <h4>Glow Beauty</h4>
+
+        <p>Your one-stop destination for premium beauty and skincare products.</p>
+
+        <div class="mb-3">
+
+            <a href="#" class="text-white me-3">
+                <i class="bi bi-facebook fs-4"></i>
+            </a>
+
+            <a href="#" class="text-white me-3">
+                <i class="bi bi-instagram fs-4"></i>
+            </a>
+
+            <a href="#" class="text-white me-3">
+                <i class="bi bi-twitter-x fs-4"></i>
+            </a>
+
+            <a href="#" class="text-white">
+                <i class="bi bi-youtube fs-4"></i>
+            </a>
+
+        </div>
+
+        <p class="mb-0">
+            © 2026 Glow Beauty. All Rights Reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+<!-- Bootstrap JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom JS -->
+
+<script src="script.js"></script>
+
+<!-- Product listing filters, sort & count (Nykaa-style) -->
+<script>
+(function () {
+  const grid = document.getElementById("productGrid");
+  const countEl = document.getElementById("productCount");
+  const priceRadios = document.querySelectorAll('input[name="priceFilter"]');
+  const ratingBox = document.getElementById("ratingFilter");
+  const discountBox = document.getElementById("discountFilter");
+  const sortSelect = document.getElementById("sortSelect");
+
+  function getPriceValue() {
+    const checked = document.querySelector('input[name="priceFilter"]:checked');
+    return checked ? checked.value : "all";
+  }
+
+  function applyFilters() {
+    const priceVal = getPriceValue();
+    const ratingOnly = ratingBox.checked;
+    const discountOnly = discountBox.checked;
+    let visible = 0;
+
+    document.querySelectorAll(".product").forEach(card => {
+      let show = card.style.display !== "none" ? true : card.style.display !== "none";
+      // start from true; category/search filters (script.js) already toggle display,
+      // so we only add extra hide conditions on top of current state when it's visible.
+      if (card.dataset._hiddenByOther) return;
+
+      let ok = true;
+      if (priceVal !== "all" && card.dataset.price !== priceVal) ok = false;
+      if (ratingOnly && card.dataset.rating !== "4plus") ok = false;
+      if (discountOnly && !card.querySelector("del")) ok = false;
+
+      card.dataset._priceRatingOk = ok ? "1" : "0";
+    });
+
+    // Recompute combined visibility: respect category/search (script.js toggles card.style.display directly)
+    document.querySelectorAll(".product").forEach(card => {
+      const catSearchHidden = card.style.display === "none";
+      const extraOk = card.dataset._priceRatingOk !== "0";
+      card.style.visibility = (!catSearchHidden && extraOk) ? "visible" : "hidden";
+      card.style.height = (!catSearchHidden && extraOk) ? "" : "0";
+      card.style.overflow = (!catSearchHidden && extraOk) ? "" : "hidden";
+      card.style.marginBottom = (!catSearchHidden && extraOk) ? "" : "0";
+      if (!catSearchHidden && extraOk) visible++;
+    });
+
+    countEl.textContent = "Showing " + visible + " product" + (visible === 1 ? "" : "s");
+  }
+
+  function applySort() {
+    const val = sortSelect.value;
+    const cards = Array.from(grid.querySelectorAll(".product"));
+
+    cards.sort((a, b) => {
+      if (val === "priceLow") return (+a.dataset.sortprice) - (+b.dataset.sortprice);
+      if (val === "priceHigh") return (+b.dataset.sortprice) - (+a.dataset.sortprice);
+      if (val === "rating") return (+b.dataset.rating.replace("plus","")) - (+a.dataset.rating.replace("plus",""));
+      return 0; // popularity = original order
+    });
+
+    cards.forEach(c => grid.appendChild(c));
+  }
+
+  priceRadios.forEach(r => r.addEventListener("change", applyFilters));
+  ratingBox.addEventListener("change", applyFilters);
+  discountBox.addEventListener("change", applyFilters);
+  sortSelect.addEventListener("change", function () {
+    if (sortSelect.value !== "popularity") applySort();
+    applyFilters();
+  });
+
+  // Re-check whenever the existing search/category filters run (script.js re-toggles display)
+  const searchBox = document.getElementById("searchProduct");
+  const categorySelect = document.getElementById("categoryFilter");
+  if (searchBox) searchBox.addEventListener("keyup", () => setTimeout(applyFilters, 0));
+  if (categorySelect) categorySelect.addEventListener("change", () => setTimeout(applyFilters, 0));
+
+  applyFilters();
+})();
+</script>
+
+</body>
+</html>

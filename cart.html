@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart | Glow Beauty</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="style.css">
+<script src="nykaa.js"></script>
+  <style>
+    .cart-img { width:80px; height:80px; object-fit:cover; border-radius:10px; }
+    .qty-btn  { width:35px; }
+    .summary-card { position:sticky; top:100px; }
+    #emptyMsg { display:none; }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold text-danger" href="index.html">Glow Beauty</a>
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="menu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="products.html" class="nav-link">Products</a></li>
+        <li class="nav-item">
+          <a href="wishlist.html" class="nav-link position-relative">
+            <i class="bi bi-heart fs-5"></i>
+            <span id="wishlistCount" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="cart.html" class="nav-link active position-relative">
+            <i class="bi bi-cart3 fs-5"></i>
+            <span id="cartCount" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Header -->
+<section class="py-5 text-center hero">
+  <div class="container">
+    <h1>Your Shopping Cart</h1>
+    <p>Review your beauty products before checkout.</p>
+  </div>
+</section>
+
+<!-- Cart -->
+<div class="container my-5">
+  <div class="row">
+
+    <!-- Left: Cart Items -->
+    <div class="col-lg-8">
+      <div id="emptyMsg" class="text-center py-5">
+        <i class="bi bi-cart-x display-1 text-muted"></i>
+        <h4 class="mt-3 text-muted">Your cart is empty</h4>
+        <a href="products.html" class="btn btn-pink mt-3">Shop Now</a>
+      </div>
+      <div class="table-responsive" id="cartTableWrapper">
+        <table class="table align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="cartBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Right: Order Summary -->
+    <div class="col-lg-4">
+
+      <div class="nk-coupon-box mb-3">
+        <label class="form-label fw-bold mb-2"><i class="bi bi-ticket-perforated"></i> Have a Coupon?</label>
+        <div class="input-group">
+          <input type="text" id="couponInput" class="form-control" placeholder="Enter code e.g. GLOW10">
+          <button class="btn btn-pink" id="applyCouponBtn">Apply</button>
+        </div>
+        <div id="couponMsg" class="small mt-2"></div>
+        <div class="small text-muted mt-2">Try <strong>GLOW10</strong> (10% off) or <strong>FLAT200</strong> (&#8377;200 off on orders above &#8377;1500)</div>
+      </div>
+
+      <div class="card summary-card shadow-sm border">
+        <div class="card-body">
+          <h5 class="text-uppercase" style="font-size:13.5px;letter-spacing:.5px;">Price Details</h5>
+          <hr>
+          <div class="nk-price-row">
+            <span>Price (<span id="itemCount">0</span> items)</span>
+            <span id="subtotal">₹0</span>
+          </div>
+          <div class="nk-price-row">
+            <span>Coupon Discount</span>
+            <span id="couponDiscount">- ₹0</span>
+          </div>
+          <div class="nk-price-row">
+            <span>Delivery Charges</span>
+            <span id="shipping">₹50</span>
+          </div>
+          <div class="nk-price-row">
+            <span>GST (18%)</span>
+            <span id="gst">₹0</span>
+          </div>
+          <div class="nk-price-row total">
+            <span>Total Amount</span>
+            <span id="grandTotal">₹0</span>
+          </div>
+          <p class="nk-savings mb-3" id="savingsMsg" style="display:none;"></p>
+          <button class="btn btn-pink w-100" id="checkoutBtn">Proceed to Checkout</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center p-4">
+  <p class="mb-0">© 2026 Glow Beauty. All Rights Reserved.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+  function saveCart() {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
+
+  function updateCounters() {
+    const totalQty = cart.reduce((s, i) => s + i.qty, 0);
+    const cc = document.getElementById("cartCount");
+    const wc = document.getElementById("wishlistCount");
+    if (cc) cc.innerText = totalQty;
+    if (wc) wc.innerText = wishlist.length;
+  }
+
+  let appliedCoupon = null; // { code, discount }
+
+  const COUPONS = {
+    "GLOW10": { type: "percent", value: 10, label: "10% off applied" },
+    "FLAT200": { type: "flat", value: 200, minOrder: 1500, label: "₹200 off applied" }
+  };
+
+  function updateSummary() {
+    const sub = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    const itemCount = cart.reduce((s, i) => s + i.qty, 0);
+
+    let discount = 0;
+    if (appliedCoupon) {
+      const c = COUPONS[appliedCoupon];
+      if (c.type === "percent") discount = Math.round(sub * (c.value / 100));
+      if (c.type === "flat" && sub >= (c.minOrder || 0)) discount = c.value;
+    }
+
+    const shipping = sub - discount >= 999 || cart.length === 0 ? 0 : (cart.length > 0 ? 50 : 0);
+    const taxable = Math.max(sub - discount, 0);
+    const tax = Math.round(taxable * 0.18);
+    const grand = taxable + tax + shipping;
+
+    document.getElementById("itemCount").innerText = itemCount;
+    document.getElementById("subtotal").innerText = "₹" + sub;
+    document.getElementById("couponDiscount").innerText = "- ₹" + discount;
+    document.getElementById("gst").innerText = "₹" + tax;
+    document.getElementById("shipping").innerText = shipping > 0 ? "₹" + shipping : "FREE";
+    document.getElementById("grandTotal").innerText = "₹" + grand;
+
+    const savingsMsg = document.getElementById("savingsMsg");
+    if (discount > 0) {
+      savingsMsg.style.display = "block";
+      savingsMsg.innerText = "You saved ₹" + discount + " on this order!";
+    } else {
+      savingsMsg.style.display = "none";
+    }
+  }
+
+  document.getElementById("applyCouponBtn").addEventListener("click", function () {
+    const code = document.getElementById("couponInput").value.trim().toUpperCase();
+    const msg = document.getElementById("couponMsg");
+    const sub = cart.reduce((s, i) => s + i.price * i.qty, 0);
+
+    if (!code) {
+      msg.className = "small mt-2 text-danger";
+      msg.innerText = "Please enter a coupon code.";
+      return;
+    }
+    if (cart.length === 0) {
+      msg.className = "small mt-2 text-danger";
+      msg.innerText = "Add products to your cart first.";
+      return;
+    }
+    const c = COUPONS[code];
+    if (!c) {
+      msg.className = "small mt-2 text-danger";
+      msg.innerText = "Invalid coupon code.";
+      appliedCoupon = null;
+      updateSummary();
+      return;
+    }
+    if (c.type === "flat" && sub < (c.minOrder || 0)) {
+      msg.className = "small mt-2 text-danger";
+      msg.innerText = "Add ₹" + (c.minOrder - sub) + " more to use this coupon.";
+      appliedCoupon = null;
+      updateSummary();
+      return;
+    }
+    appliedCoupon = code;
+    msg.className = "small mt-2 text-success";
+    msg.innerText = c.label + " \u2713";
+    updateSummary();
+  });
+
+  function renderCart() {
+    const tbody = document.getElementById("cartBody");
+    const wrapper = document.getElementById("cartTableWrapper");
+    const emptyMsg = document.getElementById("emptyMsg");
+
+    tbody.innerHTML = "";
+
+    if (cart.length === 0) {
+      wrapper.style.display = "none";
+      emptyMsg.style.display = "block";
+      updateSummary();
+      updateCounters();
+      return;
+    }
+
+    wrapper.style.display = "";
+    emptyMsg.style.display = "none";
+
+    cart.forEach((item, index) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>
+          <div class="d-flex align-items-center">
+            <img src="${item.image}" class="cart-img me-3" alt="${item.name}">
+            <div><h6>${item.name}</h6></div>
+          </div>
+        </td>
+        <td>₹${item.price}</td>
+        <td>
+          <div class="d-flex">
+            <button class="btn btn-outline-secondary qty-btn minus" data-index="${index}">-</button>
+            <input type="text" class="form-control text-center quantity" value="${item.qty}" style="width:60px;" readonly>
+            <button class="btn btn-outline-secondary qty-btn plus" data-index="${index}">+</button>
+          </div>
+        </td>
+        <td class="item-total">₹${item.price * item.qty}</td>
+        <td>
+          <button class="btn btn-danger removeBtn" data-index="${index}">
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
+      `;
+      tbody.appendChild(row);
+    });
+
+    updateSummary();
+    updateCounters();
+  }
+
+  // Event delegation for +, -, remove
+  document.getElementById("cartBody").addEventListener("click", function (e) {
+    const plusBtn = e.target.closest(".plus");
+    const minusBtn = e.target.closest(".minus");
+    const removeBtn = e.target.closest(".removeBtn");
+
+    if (plusBtn) {
+      const i = parseInt(plusBtn.dataset.index);
+      cart[i].qty++;
+      saveCart();
+      renderCart();
+    }
+
+    if (minusBtn) {
+      const i = parseInt(minusBtn.dataset.index);
+      if (cart[i].qty > 1) {
+        cart[i].qty--;
+        saveCart();
+        renderCart();
+      }
+    }
+
+    if (removeBtn) {
+      const i = parseInt(removeBtn.dataset.index);
+      const name = cart[i].name;
+      Swal.fire({
+        title: "Remove Product?",
+        text: name + " will be removed from your cart.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#e91e63",
+        cancelButtonColor: "#aaa",
+        confirmButtonText: "Yes, Remove"
+      }).then(result => {
+        if (result.isConfirmed) {
+          cart.splice(i, 1);
+          saveCart();
+          renderCart();
+          Swal.fire({ icon: "success", title: "Removed!", text: name + " removed from cart.", confirmButtonColor: "#e91e63", timer: 1500, showConfirmButton: false });
+        }
+      });
+    }
+  });
+
+  document.getElementById("checkoutBtn").addEventListener("click", function () {
+    if (cart.length === 0) {
+      Swal.fire({ icon: "warning", title: "Cart Empty", text: "Please add products to your cart first.", confirmButtonColor: "#ff4f81" });
+      return;
+    }
+    Swal.fire({ icon: "success", title: "Proceeding to Checkout", text: "Redirecting...", confirmButtonColor: "#e91e63" });
+  });
+
+  // Initial render
+  renderCart();
+</script>
+
+</body>
+</html>
